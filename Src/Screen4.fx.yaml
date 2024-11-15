@@ -1,0 +1,67 @@
+"Screen4 As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+
+    RectQuickActionBar3 As rectangle:
+        Height: =88
+        Width: =Parent.Width
+        ZIndex: =1
+
+    LblAppName3 As label:
+        Align: =Align.Center
+        Height: =88
+        Text: ="[Title]"
+        Width: =Parent.Width
+        ZIndex: =2
+
+    Canvas3 As fluidGrid.fluidGridWithBlankCard:
+        BorderThickness: =0
+        Height: =Parent.Height - Self.Y
+        Width: =Parent.Width
+        Y: =RectQuickActionBar3.Y + RectQuickActionBar3.Height
+        ZIndex: =3
+
+        DataCard4 As dataCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =Parent.Height - 100
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            ComboBox2 As combobox:
+                DisplayFields: =["Phone"]
+                Items: =NewList
+                OnChange: |-
+                    =Notify("You selected: " & ComboBox2.Selected.PhoneNumber, NotificationType.Information)
+                SearchFields: =["Phone"]
+                SearchItems: =Search(NewList,ComboBox2.SearchText,PhoneNumber)
+                X: =40
+                Y: =40
+                ZIndex: =1
+
+            ComboBox3 As combobox:
+                DisplayFields: =["Email"]
+                IsSearchable: =false
+                Items: =Distinct([@NewList],Sex)
+                SearchFields: =[""]
+                SearchItems: =[]
+                SelectMultiple: =false
+                X: =40
+                Y: =160
+                ZIndex: =2
+
+            ComboBox3_1 As combobox:
+                DisplayFields: =["ComplianceAssetId"]
+                Items: |
+                    =Filter([@NewList],ThisRecord.Sex = "duythuc")
+                OnChange: =true
+                SearchFields: =["ComplianceAssetId"]
+                SearchItems: =Search(Filter([@NewList],FullName="duythuc"),ComboBox3_1.SearchText,ComplianceAssetId)
+                SelectMultiple: =false
+                X: =40
+                Y: =251
+                ZIndex: =3
+

@@ -1,0 +1,126 @@
+"Screen5 As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+    OnVisible: |
+        =ClearCollect(
+            DepartmentList,
+            {Value: "All Departments"},
+            Choices([@Leaves].Department)
+        );
+        ClearCollect(
+            StatusApproveList,
+            {Value: "All Status"},
+            Choices([@Leaves].'Leave Status')
+        );
+
+    RectQuickActionBar4 As rectangle:
+        Height: =88
+        Width: =Parent.Width
+        ZIndex: =1
+
+    LblAppName4 As label:
+        Align: =Align.Center
+        Height: =88
+        Text: |-
+            ="View my leave application
+            "
+        Width: =Parent.Width
+        ZIndex: =2
+
+    Canvas4 As fluidGrid.fluidGridWithBlankCard:
+        BorderThickness: =0
+        Height: =Parent.Height - Self.Y
+        Width: =Parent.Width
+        Y: =RectQuickActionBar4.Y + RectQuickActionBar4.Height
+        ZIndex: =3
+
+        DataCard5 As dataCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =Parent.Height - 100
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            Gallery1 As gallery.galleryVertical:
+                DelayItemLoading: =true
+                Height: =528
+                Items: |-
+                    =Filter(
+                        Leaves,
+                        Substitute(
+                            Dropdown1.SelectedText.Value,
+                            "All Departments",
+                            ""
+                        ) in 'Department'.Value,
+                        Substitute(
+                            Dropdown1_1.SelectedText.Value,
+                            "All Status",
+                            ""
+                        ) in 'Leave Status'.Value
+                    )
+                Layout: =Layout.Vertical
+                LoadingSpinner: =LoadingSpinner.Data
+                TemplateSize: =48
+                Width: =1256
+                X: =40
+                Y: =108
+                ZIndex: =1
+
+                Label3 As label:
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.Name
+                    X: =12
+                    Y: =4
+                    ZIndex: =1
+
+                Label4 As label:
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.Department.Value
+                    X: =254
+                    Y: =4
+                    ZIndex: =2
+
+                Label5 As label:
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.Manager.DisplayName
+                    X: =465
+                    Y: =4
+                    ZIndex: =3
+
+                Button5 As button:
+                    OnSelect: |-
+                        =EditForm(Form2);Navigate(Screen2,ScreenTransition.Cover,{SelectedItem:Gallery1.Selected});
+                    Text: ="Edit"
+                    X: =1086
+                    Y: =4
+                    ZIndex: =4
+
+                Label6 As label:
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.'Leave Type'.Value
+                    X: =886
+                    Y: =4
+                    ZIndex: =5
+
+                Label7 As label:
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.'Leave Status'.Value
+                    X: =675
+                    Y: =4
+                    ZIndex: =6
+
+            Dropdown1 As dropdown:
+                Items: =DepartmentList.Value
+                X: =112
+                Y: =28
+                ZIndex: =2
+
+            Dropdown1_1 As dropdown:
+                Items: =StatusApproveList.Value
+                X: =517
+                Y: =28
+                ZIndex: =3
+

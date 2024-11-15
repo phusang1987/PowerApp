@@ -1,0 +1,20 @@
+"Screen1 As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+
+    Button1 As button:
+        Height: =141
+        OnSelect: =ResetForm(Form2);NewForm(Form2);Navigate(Screen2,ScreenTransition.Fade);
+        Text: ="Apply Leave"
+        Width: =275
+        X: =40
+        Y: =40
+        ZIndex: =1
+
+    Button2 As button:
+        Height: =123
+        OnSelect: =Navigate(Screen5,ScreenTransition.Cover)
+        Text: ="View My Leave Application"
+        Width: =280
+        X: =768
+        Y: =58
+        ZIndex: =2
+
